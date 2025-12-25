@@ -83,13 +83,13 @@
 
   <div class="description">
     رجاء تعبئة كود المستخدم  الخاص بك وإضافة التوقيع لغرض إضافة التوقيع إلكترونيًا
-    على نظام الموارد المؤسسية ساب (رسم التوقيع أو رفع صورة التوقيع )
+    على نظام الموارد المؤسسية ساب
+(<strong>رسم التوقيع أو رفع صورة التوقيع</strong>)
+    
   </div>
 
   <input type="text" id="employeeId" placeholder="كود المستخدم">
 
-  <!-- رفع صورة -->
-  <input type="file" accept="image/*" onchange="loadImage(event)">
 
   <!-- لوحة التوقيع -->
   <canvas id="signature"></canvas>
@@ -97,6 +97,9 @@
   <div class="buttons">
     <button class="btn-clear" onclick="clearCanvas()">مسح</button>
     <button class="btn-save" onclick="saveSignature()">حفظ التوقيع</button>
+     <!-- رفع صورة -->
+  <input type="file" accept="image/*" onchange="loadImage(event)">
+    
   </div>
 </div>
 
@@ -176,6 +179,7 @@
 
 </body>
 </html>
+
 
 
 
