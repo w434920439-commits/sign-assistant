@@ -5,127 +5,98 @@
   <title>نموذج إضافة التوقيع على نظام SAP</title>
 
   <style>
-  body {
-    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-    background: linear-gradient(135deg, #1E2A5A, #6A1B9A);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    direction: rtl;
-  }
+    body {
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background: linear-gradient(135deg, #1E2A5A, #6A1B9A);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      direction: rtl;
+    }
 
-  .container {
-    background-color: #ffffff;
-    width: 420px;
-    padding: 28px;
-    border-radius: 14px;
-    box-shadow: 0 10px 25px rgba(30, 42, 90, 0.25);
-    text-align: center;
-  }
+    .container {
+      background-color: #ffffff;
+      width: 420px;
+      padding: 28px;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(30, 42, 90, 0.25);
+      text-align: center;
+    }
 
-  .title {
-    color: #1E2A5A;
-    font-size: 21px;
-    font-weight: 700;
-    margin-bottom: 15px;
-  }
+    .title {
+      color: #1E2A5A;
+      font-size: 21px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
 
-  .description {
-    color: #444;
-    font-size: 14px;
-    line-height: 1.9;
-    margin-bottom: 22px;
-  }
+    .description {
+      color: #444;
+      font-size: 14px;
+      line-height: 1.9;
+      margin-bottom: 22px;
+    }
 
-  input {
-    width: 100%;
-    padding: 11px;
-    margin-bottom: 16px;
-    font-size: 14px;
-    border: 1px solid #C7C9D3;
-    border-radius: 8px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
+    input {
+      width: 100%;
+      padding: 11px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      border: 1px solid #C7C9D3;
+      border-radius: 8px;
+    }
 
-  input:focus {
-    outline: none;
-    border-color: #6A1B9A;
-    box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.15);
-  }
+    canvas {
+      border: 2px dashed #6A1B9A;
+      width: 100%;
+      height: 160px;
+      border-radius: 10px;
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
 
-  canvas {
-    border: 2px dashed #6A1B9A;
-    width: 100%;
-    height: 150px;
-    border-radius: 10px;
-    cursor: crosshair;
-    background-color: #FAFAFA;
-  }
+    .buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
 
-  .buttons {
-    margin-top: 18px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
+    button {
+      padding: 10px 16px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
 
-  button {
-    padding: 10px 18px;
-    font-size: 14px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
-  }
-
-  button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-    opacity: 0.95;
-  }
-
-  .btn-clear {
-    background-color: #9C4DCC;
-    color: #ffffff;
-  }
-
-  .btn-save {
-    background-color: #1E2A5A;
-    color: #ffffff;
-  }
-</style>
-
+    .btn-clear { background-color: #9C4DCC; color: #fff; }
+    .btn-save { background-color: #1E2A5A; color: #fff; }
+  </style>
 </head>
 
 <body>
 
 <div class="container">
+  <div class="title">نموذج إضافة التوقيع على نظام SAP</div>
 
-  <!-- العنوان -->
-  <div class="title">
-    نموذج إضافة التوقيع على نظام SAP
-  </div>
-
-  <!-- الوصف -->
   <div class="description">
-    الرجاء تعبئة كود المستخدم  الخاص بك وإضافة التوقيع لغرض إضافة التوقيع إلكترونيًا
-    على نظام الموارد المؤسسية ساب.
+    الرجاء إدخال كود المستخدم وإضافة التوقيع (رسم أو رفع صورة)
   </div>
 
-  <!-- رقم الموظف -->
   <input type="text" id="employeeId" placeholder="كود المستخدم">
+
+  <!-- رفع صورة -->
+  <input type="file" accept="image/*" onchange="loadImage(event)">
 
   <!-- لوحة التوقيع -->
   <canvas id="signature"></canvas>
 
-  <!-- الأزرار -->
   <div class="buttons">
     <button class="btn-clear" onclick="clearCanvas()">مسح</button>
     <button class="btn-save" onclick="saveSignature()">حفظ التوقيع</button>
   </div>
-
 </div>
 
 <script>
@@ -136,6 +107,7 @@
   canvas.height = canvas.offsetHeight;
 
   let drawing = false;
+  let uploadedImage = null;
 
   canvas.addEventListener("mousedown", () => drawing = true);
   canvas.addEventListener("mouseup", () => {
@@ -158,16 +130,35 @@
 
   function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    uploadedImage = null;
+  }
+
+  function loadImage(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        uploadedImage = canvas.toDataURL("image/png");
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   function saveSignature() {
     const employeeId = document.getElementById("employeeId").value;
+
     if (!employeeId) {
-      alert("الرجاء إدخال رقم الموظف");
+      alert("الرجاء إدخال كود المستخدم");
       return;
     }
 
-    const signature = canvas.toDataURL("image/png");
+    const signature = uploadedImage || canvas.toDataURL("image/png");
 
     fetch("https://wejdan191.app.n8n.cloud/webhook/signature", {
       method: "POST",
@@ -177,16 +168,13 @@
         signature: signature
       })
     })
-    .then(() => alert("تم حفظ التوقيع بنجاح"))
-    .catch(() => alert("حدث خطأ أثناء الحفظ"));
+    .then(() => alert("✅ تم حفظ التوقيع بنجاح"))
+    .catch(() => alert("❌ حدث خطأ أثناء الحفظ"));
   }
 </script>
 
 </body>
 </html>
-
-
-
 
 
 
