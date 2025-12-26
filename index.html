@@ -1,321 +1,209 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>نموذج إضافة التوقيع على نظام SAP</title>
+<meta charset="UTF-8">
+<title>نموذج إضافة التوقيع - SAP</title>
 
-  <!-- Cairo Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+body {
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(135deg, #1E2A5A, #6A1B9A);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  direction: rtl;
+}
 
-    body {
-      font-family: "Cairo", "Segoe UI", Tahoma, Arial, sans-serif;
-      background: linear-gradient(135deg, #1E2A5A, #6A1B9A);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      direction: rtl;
-      margin: 0;
-      padding: 18px;
-    }
+.container {
+  background: #ffffff;
+  width: 420px;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
 
-    .container {
-      background: #ffffff;
-      width: 440px;
-      max-width: 100%;
-      padding: 28px;
-      border-radius: 14px;
-      box-shadow: 0 10px 25px rgba(30, 42, 90, 0.25);
-      text-align: center;
-    }
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1E2A5A;
+  margin-bottom: 10px;
+  text-align: center;
+}
 
-    .title {
-      color: #1E2A5A;
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
+.description {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  text-align: center;
+}
 
-    .description {
-      color: #444;
-      font-size: 14px;
-      line-height: 1.95;
-      margin-bottom: 12px;
-    }
+input[type="text"], input[type="file"] {
+  width: 100%;
+  padding: 11px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
 
-    .note {
-      font-weight: 700;
-      color: #6A1B9A;
-      margin-bottom: 16px;
-    }
+canvas {
+  width: 100%;
+  height: 160px;
+  border: 2px dashed #6A1B9A;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background-color: #fff;
+}
 
-    label {
-      display: block;
-      text-align: right;
-      font-size: 13px;
-      color: #1E2A5A;
-      font-weight: 600;
-      margin: 10px 0 6px;
-    }
+.consent {
+  font-size: 13px;
+  color: #333;
+  background: #F6F3FF;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
 
-    input[type="text"] {
-      width: 100%;
-      padding: 11px 12px;
-      margin-bottom: 10px;
-      font-size: 14px;
-      border: 1px solid #C7C9D3;
-      border-radius: 8px;
-      font-family: "Cairo", sans-serif;
-      outline: none;
-    }
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
 
-    input[type="text"]:focus {
-      border-color: #6A1B9A;
-      box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.12);
-    }
+button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    input[type="file"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px dashed #C7C9D3;
-      border-radius: 8px;
-      background: #fafafa;
-      font-family: "Cairo", sans-serif;
-      margin-bottom: 14px;
-      cursor: pointer;
-    }
+.btn-save {
+  background: #1E2A5A;
+  color: white;
+}
 
-    canvas {
-      border: 2px dashed #6A1B9A;
-      width: 100%;
-      height: 170px;
-      border-radius: 10px;
-      background: #fff;
-      display: block;
-      margin-bottom: 14px;
-      cursor: crosshair;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    button {
-      padding: 10px 18px;
-      font-size: 14px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-weight: 700;
-      font-family: "Cairo", sans-serif;
-      transition: transform .15s ease, opacity .15s ease;
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-      opacity: 0.95;
-    }
-
-    .btn-save {
-      background: #1E2A5A;
-      color: #fff;
-    }
-
-    .btn-clear {
-      background: #9C4DCC;
-      color: #fff;
-    }
-
-    .hint {
-      margin-top: 10px;
-      font-size: 12px;
-      color: #666;
-      line-height: 1.7;
-      text-align: right;
-    }
-  </style>
+.btn-clear {
+  background: #9C4DCC;
+  color: white;
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="title">نموذج إضافة التوقيع على نظام SAP</div>
 
-    <div class="description">
-      يرجى تعبئة كود المستخدم الخاص بكم في نظام ساب، وإضافة التوقيع ،
-      وذلك لغرض تفعيل وإدراج التوقيع الإلكتروني ضمن نظام تخطيط موارد المؤسسة (SAP).
-    </div>
+<div class="container">
 
-    <div class="note"><strong>(رسم التوقيع أو رفع صورة التوقيع)</strong></div>
+  <div class="title">نموذج إضافة التوقيع على نظام SAP</div>
 
-    <label for="employeeId">كود المستخدم</label>
-    <input type="text" id="employeeId" placeholder="مثال: 10266" inputmode="numeric" />
-
-    <label for="signatureFile">رفع صورة التوقيع</label>
-    <input id="signatureFile" type="file" accept="image/*" onchange="loadImage(event)" />
-
-    <canvas id="signature"></canvas>
-
-    <div class="buttons">
-      <button class="btn-save" onclick="saveSignature()">حفظ التوقيع</button>
-      <button class="btn-clear" onclick="clearCanvas()">مسح</button>
-    </div>
-
-    <div class="hint">
-      ملاحظة: يفضّل أن تكون صورة التوقيع بخلفية بيضاء وبحجم صغير (مثلاً أقل من 500KB) لضمان جودة التوقيع.
-    </div>
+  <div class="description">
+    يرجى تعبئة كود المستخدم الخاص بكم وإضافة التوقيع لاعتماده رسميًا في نظام تخطيط موارد المؤسسة (SAP).
   </div>
 
+  <input type="text" id="employeeId" placeholder="كود المستخدم">
+
+  <input type="file" accept="image/*" onchange="loadImage(event)">
+
+  <canvas id="signature"></canvas>
+
+  <div class="consent">
+    <label>
+      <input type="checkbox" id="agree">
+      أُقِرّ بأن التوقيع المرفق صحيح ويخصني، وأوافق على اعتماده واستخدامه ضمن نظام تخطيط موارد المؤسسة (SAP).
+    </label>
+  </div>
+
+  <div class="buttons">
+    <button class="btn-save" onclick="saveSignature()">حفظ التوقيع</button>
+    <button class="btn-clear" onclick="clearCanvas()">مسح</button>
+  </div>
+
+</div>
+
 <script>
-  const canvas = document.getElementById("signature");
-  const ctx = canvas.getContext("2d");
+const canvas = document.getElementById("signature");
+const ctx = canvas.getContext("2d");
 
-  // ضبط حجم الـ canvas فعلياً (حتى ما يصير اختلاف جودة)
-  function resizeCanvas() {
-    const ratio = window.devicePixelRatio || 1;
-    const cssWidth = canvas.offsetWidth;
-    const cssHeight = canvas.offsetHeight;
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
 
-    canvas.width = Math.floor(cssWidth * ratio);
-    canvas.height = Math.floor(cssHeight * ratio);
+let drawing = false;
+let uploadedImage = null;
 
-    canvas.style.width = cssWidth + "px";
-    canvas.style.height = cssHeight + "px";
+canvas.addEventListener("mousedown", () => drawing = true);
+canvas.addEventListener("mouseup", () => { drawing = false; ctx.beginPath(); });
+canvas.addEventListener("mousemove", draw);
 
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0); // رسم بجودة أعلى
-    ctx.lineWidth = 2;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "#000";
-  }
+function draw(e) {
+  if (!drawing) return;
+  const rect = canvas.getBoundingClientRect();
+  ctx.lineWidth = 2;
+  ctx.lineCap = "round";
+  ctx.strokeStyle = "#000";
+  ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+}
 
-  resizeCanvas();
-  window.addEventListener("resize", () => {
-    // إعادة تهيئة عند تغيير حجم الشاشة
-    const imgData = canvas.toDataURL("image/png");
-    resizeCanvas();
-    // إعادة رسم آخر محتوى إن وجد
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  uploadedImage = null;
+}
+
+function loadImage(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
     const img = new Image();
     img.onload = () => {
-      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
-      ctx.drawImage(img, 0, 0, canvas.offsetWidth, canvas.offsetHeight);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      uploadedImage = canvas.toDataURL("image/png");
     };
-    img.src = imgData;
-  });
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
 
-  let drawing = false;
+function saveSignature() {
+  const employeeId = document.getElementById("employeeId").value;
+  const approved = document.getElementById("agree").checked;
 
-  canvas.addEventListener("mousedown", () => drawing = true);
-  canvas.addEventListener("mouseup", () => {
-    drawing = false;
-    ctx.beginPath();
-  });
-  canvas.addEventListener("mouseleave", () => {
-    drawing = false;
-    ctx.beginPath();
-  });
-  canvas.addEventListener("mousemove", draw);
-
-  // دعم اللمس للجوال
-  canvas.addEventListener("touchstart", (e) => { drawing = true; e.preventDefault(); }, { passive: false });
-  canvas.addEventListener("touchend", (e) => { drawing = false; ctx.beginPath(); e.preventDefault(); }, { passive: false });
-  canvas.addEventListener("touchmove", (e) => { draw(e); e.preventDefault(); }, { passive: false });
-
-  function getPos(e) {
-    const rect = canvas.getBoundingClientRect();
-    if (e.touches && e.touches[0]) {
-      return {
-        x: e.touches[0].clientX - rect.left,
-        y: e.touches[0].clientY - rect.top
-      };
-    }
-    return {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    };
+  if (!employeeId) {
+    alert("يرجى إدخال كود المستخدم");
+    return;
   }
 
-  function draw(e) {
-    if (!drawing) return;
-    const p = getPos(e);
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(p.x, p.y);
+  if (!approved) {
+    alert("يرجى الموافقة على الإقرار قبل الإرسال");
+    return;
   }
 
-  function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
-    // تفريغ اختيار الملف حتى يقدر يرفع نفس الملف مرة ثانية
-    const f = document.getElementById("signatureFile");
-    if (f) f.value = "";
-  }
+  const signature = uploadedImage || canvas.toDataURL("image/png");
 
-  function loadImage(event) {
-    const file = event.target.files && event.target.files[0];
-    if (!file) return;
-
-    // حد الحجم (اختياري) - تقدرين تغيرينه
-    const MAX_SIZE = 500 * 1024; // 500KB
-    if (file.size > MAX_SIZE) {
-      alert("حجم الصورة كبير. الرجاء اختيار صورة أقل من 500KB.");
-      event.target.value = "";
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const img = new Image();
-      img.onload = function () {
-        // رسم الصورة داخل اللوحة مع الحفاظ على النسبة
-        ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
-
-        const cw = canvas.offsetWidth;
-        const ch = canvas.offsetHeight;
-
-        const scale = Math.min(cw / img.width, ch / img.height);
-        const w = img.width * scale;
-        const h = img.height * scale;
-        const x = (cw - w) / 2;
-        const y = (ch - h) / 2;
-
-        ctx.drawImage(img, x, y, w, h);
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function saveSignature() {
-    const employeeId = (document.getElementById("employeeId").value || "").trim();
-
-    if (!employeeId) {
-      alert("يرجى إدخال كود المستخدم");
-      return;
-    }
-
-    // تصدير التوقيع كـ PNG
-    const signature = canvas.toDataURL("image/png");
-
-    fetch("https://wejdan191.app.n8n.cloud/webhook/signature", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        employee_id: employeeId,
-        signature: signature
-      })
+  fetch("https://wejdan191.app.n8n.cloud/webhook/signature", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      employee_id: employeeId,
+      signature: signature
     })
-    .then(() => alert("✅ تم حفظ التوقيع بنجاح"))
-    .catch(() => alert("❌ حدث خطأ أثناء الحفظ"));
-  }
+  })
+  .then(() => alert("✅ تم حفظ التوقيع بنجاح"))
+  .catch(() => alert("❌ حدث خطأ أثناء الحفظ"));
+}
 </script>
+
 </body>
 </html>
+
+
 
 
