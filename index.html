@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>نموذج إضافة التوقيع على نظام SAP</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
     }
 
     .container {
-      background: #ffffff;
+      background: #fff;
       width: 100%;
       max-width: 520px;
       padding: 28px;
@@ -58,9 +58,8 @@
 
     label {
       display: block;
-      margin-top: 12px;
-      margin-bottom: 6px;
       font-weight: 600;
+      margin: 12px 0 6px;
     }
 
     input[type="text"],
@@ -93,7 +92,8 @@
       gap: 8px;
       margin-top: 14px;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.7;
+      direction: rtl;
     }
 
     .consent input {
@@ -135,7 +135,7 @@
   <div class="title">نموذج إضافة التوقيع على نظام SAP</div>
 
   <div class="description">
- يرجى تعبئة كود المستخدم الخاص بك على نظام ساب وإضافة التوقيع و ذالك لاعتماده ضمن نظام تخطيط موارد المؤسسة (SAP).
+    يرجى تعبئة كود المستخدم الخاص بك على نظام ساب وإضافة التوقيع لاعتماده ضمن نظام تخطيط موارد المؤسسة (SAP).
   </div>
 
   <div class="note">
@@ -151,13 +151,13 @@
   <canvas id="signature"></canvas>
 
   <div class="hint">
-    يُفضل أن تكون صورة التوقيع بخلفية بيضاء وبحجم أقل من 500KB لضمان الجودة.
+    يُفضل أن تكون صورة التوقيع بخلفية بيضاء وبحجم أقل من 500KB لضمان جودة التوقيع.
   </div>
 
   <div class="consent">
     <input type="checkbox" id="agree">
     <label for="agree">
-      أُقرّ بصحة التوقيع المرفق، وأوافق على استخدامه رسميًا ضمن نظام  (SAP).
+      أُقرّ بصحة التوقيع المرفق، وأوافق على استخدامه رسميًا ضمن نظام (SAP).
     </label>
   </div>
 
@@ -178,7 +178,6 @@
     canvas.height = canvas.offsetHeight * ratio;
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
   }
-
   resizeCanvas();
 
   let drawing = false;
@@ -213,41 +212,4 @@
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = function (ev) {
-      const img = new Image();
-      img.onload = function () {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
-        const w = img.width * scale;
-        const h = img.height * scale;
-        const x = (canvas.width - w) / 2;
-        const y = (canvas.height - h) / 2;
-        ctx.drawImage(img, x, y, w, h);
-      };
-      img.src = ev.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-
-  function saveSignature() {
-    const emp = document.getElementById("employeeId").value.trim();
-    const approved = document.getElementById("agree").checked;
-
-    if (!emp) return alert("يرجى إدخال كود المستخدم");
-    if (!approved) return alert("يجب الموافقة على الإقرار أولاً");
-
-    const signature = canvas.toDataURL("image/png");
-
-    fetch("https://wejdan191.app.n8n.cloud/webhook/signature", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ employee_id: emp, signature })
-    })
-    .then(() => alert("تم حفظ التوقيع بنجاح"))
-    .catch(() => alert("حدث خطأ أثناء الإرسال"));
-  }
-</script>
-
-</body>
-</html>
+    const read
